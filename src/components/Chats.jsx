@@ -4,6 +4,7 @@ import {ChatEngine} from 'react-chat-engine';
 import { auth } from '../firebase';
 import {useAuth} from '../contexts/AuthContext'
 import axios from 'axios';
+import Loder from './Loder';
 
 //put all private key into envirment variable
 
@@ -58,7 +59,7 @@ const Chats = () => {
          })
      }, [user , history]);
 
-     if(!user || loading) return 'loading...';    
+     if(!user || loading)  return <Loder/>;    
      
      return (
         <div className="chats-page">

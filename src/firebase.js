@@ -8,4 +8,4 @@ export const auth  = firebase.initializeApp( {
     storageBucket: "webchat-1c504.appspot.com",
     messagingSenderId: "86018174044",
     appId: "1:86018174044:web:270b180e4485b052df0a99"
-  }).auth();
+  }).auth();  

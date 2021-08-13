@@ -4,12 +4,13 @@ import {ChatEngine} from 'react-chat-engine';
 import { auth } from '../firebase';
 import {useAuth} from '../contexts/AuthContext'
 import axios from 'axios';
+
 //put all private key into envirment variable
 
 const Chats = () => {
     const history = useHistory();
     const {user} = useAuth();
-    const [loading, setloading] = useState(true);
+    const [loading, setLoading] = useState(true);
 
     const handleLogout = async ()=>{
         await auth.signOut();
@@ -20,7 +21,7 @@ const Chats = () => {
         const response = await fetch(url);
         const data = await response.blob();
 
-        return new File([data] , "userPhoto.jpeg" , {type : 'image/jpeg'})
+        return new File([data] , "userPhoto.jpg" , {type : 'image/jpeg'})
     }
     
     useEffect(()=>{
@@ -30,13 +31,13 @@ const Chats = () => {
          }
          axios.get('https://api.chatengine.io/users/me',{
              headers : {
-                "project-id":process.env.REACT_CHAT_ENGINE_ID,
+                "project-id": "dac532f4-1bd5-402a-8538-82f3f8ecfc55",
                 "user-name" : user.email ,
-                "user-secret":user.uid
+                "user-secret":user.uid,
              }
          })
          .then(()=>{
-            setloading(false);    
+            setLoading(false);    
          })
          .catch(()=>{
              let formdata = new FormData();
@@ -48,10 +49,10 @@ const Chats = () => {
               .then((avatar)=>{
                  formdata.append('avatar' , avatar , avatar.name);
 
-                 axios.post('https://api.chatengine.io/users',formdata,{
-                     headers :{ "private-key" : process.env.REACT_CHAT_ENGINE_KEY}
+                 axios.post('https://api.chatengine.io/users/', formdata ,{
+                     headers :{ "private-key" : process.env.REACT_CHAT_ENGINE_KEY }
                  })
-                 .then(()=>{setloading(false)})
+                 .then(()=>{setLoading(false)})
                  .catch((error)=> console.log(error))
               })
          })
@@ -72,7 +73,7 @@ const Chats = () => {
                 
                 <ChatEngine 
                    hight="calc(100vh-66px)"
-                   projectID={process.env.REACT_CHAT_ENGINE_ID}
+                   projectID="dac532f4-1bd5-402a-8538-82f3f8ecfc55"
                    userName={user.email}
                    userSecret={user.uid}  
                 />
